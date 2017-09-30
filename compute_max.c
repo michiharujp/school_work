@@ -1,8 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "getmax.h"
 
-double maximum_liner(double *, int);
 void list(double *, int);
 
 int main(void){
@@ -35,15 +35,4 @@ int main(void){
 //一覧表示
 void list(double *array, int n) {
     for (int i=0; i<n; i++) printf("%lf\n", array[i]);
-}
-
-//線形探索
-double maximum_liner(double *array, int n) {
-    double tmp = 0;
-    for (int i=0; i<n; i++) {
-        if (array[i] > tmp) {
-            tmp = array[i];
-        }
-    }
-    return tmp;
 }
