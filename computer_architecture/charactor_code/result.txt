@@ -1,0 +1,38 @@
+oroginal
+WASEDAﾜｾﾀﾞwaseda早稲田
+
+iso-2022-jp
+00000000: 5741 5345 4441 efbe 9cef bdbe efbe 80ef  WASEDA..........
+          W A  S E  D A  ﾜ      ｾ       ﾀ      ﾞ
+00000010: be9e 7761 7365 6461 e697 a9e7 a8b2 e794  ..waseda........
+               w a  s e  d a  早     稲      田
+00000020: b00d 0a                                  ...
+            CR LF
+
+shift-jis
+00000000: 5741 5345 4441 dcbe c0de 7761 7365 6461  WASEDA....waseda
+          W A  S E  D A  ﾜ ｾ  ﾀ ﾞ  w a  s e  d a
+00000010: 9181 88ee 9363 0d0a                      .....c..
+          早   稲   田   CRLF
+
+euc-jp
+00000000: 5741 5345 4441 8edc 8ebe 8ec0 8ede 7761  WASEDA........wa
+          W A  S E  D A  ﾜ    ｾ    ﾀ    ﾞ    w a
+00000010: 7365 6461 c1e1 b0f0 c5c4 0d0a            seda........
+          s e  d a  早   稲   田   CRLF
+
+utf-8
+00000000: 5741 5345 4441 efbe 9cef bdbe efbe 80ef  WASEDA..........
+          W A  S E  D A  ﾜ      ｾ       ﾀ      ﾞ
+00000010: be9e 7761 7365 6461 e697 a9e7 a8b2 e794  ..waseda........
+               w a  s e  d a  早     稲      田
+00000020: b00d 0a                                  ...
+            CR LF
+
+utf16
+00000000: 0057 0041 0053 0045 0044 0041 ff9c ff7e  .W.A.S.E.D.A...~
+          W    A    S    E    D    A    ﾜ    ｾ
+00000010: ff80 ff9e 0077 0061 0073 0065 0064 0061  .....w.a.s.e.d.a
+          ﾀ    ﾞ    w    a    s    e    d    a
+00000020: 65e9 7a32 7530 000d 000a                 e.z2u0....
+          早   稲   田   CR   LF
