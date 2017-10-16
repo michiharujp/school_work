@@ -3,7 +3,7 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define times 1000 //試行回数
+#define times 10 //試行回数
 #define N 30000 //データ数
 #define execute heapSort //実行したいソートを入れる
 
@@ -145,10 +145,7 @@ void heapSort() {
 
 void bogoSort() {
     srand ((unsigned int) time(NULL));
-    while (!check()) {
-        shuffle();
-        print();
-    }
+    while (!check()) shuffle();
 }
 
 // ソート関数ここまで
@@ -156,6 +153,10 @@ void bogoSort() {
 void setData() {
     for (int i=0; i<N; i++) sort[i] = i + 1;
     shuffle();
+}
+
+void setSortedData() {
+    for (int i=0; i<N; i++) sort[i] = i + 1;
 }
 
 double getTime() {
@@ -176,6 +177,6 @@ int main (void) {
         ti += tmp;
         printf("%.2f\n", tmp);
     }
-    printf("average is : %0.2f\n", ti / times);
+    printf("%0.2f\n", ti / times);
     return EXIT_SUCCESS;
 }
