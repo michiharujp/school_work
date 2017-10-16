@@ -3,12 +3,20 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define N 10
-#define PRINT 1 // Nが大きな値の時は0にする
-#define CHECK 1
+#define times 10 //試行回数
+#define N 30000 //データ数
+#define execute heapSort //実行したいソートを入れる
 
-int sort[N];
+//bubbleSort
+//shakerSort
+//insertionSort
+//selectionSort
+//heapSort
+//bogoSort
 
+int sort[N]; // 対象となる配列
+
+// 二数を入れ替える関数
 void swap(int *x, int *y) {
     int tmp;
     tmp = *x;
@@ -16,6 +24,7 @@ void swap(int *x, int *y) {
     *y = tmp;
 }
 
+// 中身を表示する関数(デバッグ用)
 void print() {
     for (int i=0; i<N; i++) {
         printf ("%d ", sort[i]);
@@ -23,13 +32,24 @@ void print() {
     printf ("\n");
 }
 
-void printH(int k) {
-    for (int i=0; i<k; i++) {
-        printf ("%d ", sort[i]);
-    }
-    printf ("\n");
+// ソート済みであるかチェックする関数
+bool check() {
+    for (int i=0; i<N-1; i++) if (sort[i] > sort[i+1]) return false;
+    return true;
 }
 
+// 配列の中身をシャッフルする関数
+void shuffle() {
+    srand ((unsigned int) time(NULL));
+    for (int i=0; i<N; i++) {
+        int j = rand()%N;
+        int tmp = sort[i];
+        sort[i] = sort[j];
+        sort[j] = tmp;
+    }
+}
+
+// ソート関数ここから
 void bubbleSort() {
     int tmp;
     for (int i=1; i<N; i++)
@@ -55,7 +75,7 @@ void shakerSort() {
         for (int i=bot; i>top; i--) {
             if (sort[i] < sort[i-1]) {
                 swap(&sort[i], &sort[i-1]);
-                index - i;
+                index = i;
             }
         }
         top = index;
@@ -108,70 +128,55 @@ void heapSort() {
         while(true) {
             int le = getLeft(m);
             int ri = getRight(m);
-            if (ri > n) break;
+            if (le >= n) break;
             if (data[le] > data[tmp]) tmp = le;
-            if (data[ri] > data[tmp]) tmp = ri;
+            if (ri < n && data[ri] > data[tmp]) tmp = ri;
             if (tmp == m) break;
             swap(&data[tmp], &data[m]);
             m = tmp;
         }
     }
     for (int i=1; i<N; i++) upheap(sort, i);
-    for (int i=N-2; i>0; i--) {
+    for (int i=N-1; i>0; i--) {
         swap(&sort[0], &sort[i]);
         downheap(sort, i);
     }
 }
 
+void bogoSort() {
+    srand ((unsigned int) time(NULL));
+    while (!check()) shuffle();
+}
 
-void xxxSort() {
+// ソート関数ここまで
+
+void setData() {
+    for (int i=0; i<N; i++) sort[i] = i + 1;
+    shuffle();
+}
+
+void setSortedData() {
+    for (int i=0; i<N; i++) sort[i] = i + 1;
+}
+
+double getTime() {
+    clock_t start, end;
+    start = clock();
+    execute();
+    end = clock();
+    if (!check) return -100;
+    return (end - start)*1000 / (double) CLOCKS_PER_SEC;
 }
 
 int main (void) {
-    int i, j, t;
-    srand ((unsigned int) time(NULL));
-    // Fisher-Yatesアルゴリズムで1~Nのランダムな数列を構築する
-    for (i=0; i<N; i++) {
-        sort[i] = i + 1;
+    double ti=0;
+    double tmp;
+    for (int i=0; i<times; i++) {
+        setData();
+        tmp = getTime();
+        ti += tmp;
+        printf("%.2f\n", tmp);
     }
-    for (i=N-1; i>0; i--) {
-        j = rand()%(i+1);
-        t = sort[i];
-        sort[i] = sort[j];
-        sort[j] = t;
-    }
-    if (PRINT) print();
-
-    heapSort();
-
-    if (PRINT) print();
-    /*
-
-       clock_t start, end;
-       start = clock();
-       printf ("Sort start...");
-    // ソートを行う関数の呼び出し
-    xxxSort ();
-    printf("Sort end.\n");
-    end = clock();
-
-    if (PRINT) {
-    for (i=0; i<N; i++) {
-    printf ("%d ", sort[i]);
-    }
-    printf ("\n");
-    }
-    printf("Elapsed time: %.2f milisec.\n", 
-    (end - start)*1000 / (double) CLOCKS_PER_SEC);
-
-    if (CHECK) {
-    for (i=0; i<N-1; i++) {
-    if (sort[i] > sort[i+1]) {
-    printf ("*** Not sorted ***\n"); break;
-    }
-    }
-    }
-    */
+    printf("%0.2f\n", ti / times);
     return EXIT_SUCCESS;
 }
-
