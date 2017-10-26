@@ -7,19 +7,18 @@ double Is = 2 * 10e-12; // mA
 double Vb = 3; // V
 double Re = 1; // kΩ
 
-double next(double V) {
-    return Is * (exp(k * V) - 1);
-}
-
+// 純粋にI_EからI_Eを導出する関数
 double nextI(double I) {
     return Is * (exp(k * (Vb - (Re * I))) - 1);
 }
+
+// 導出されたI_Eと元のI_Eの差を求める関数
 double getDiff(double I) {
     return I - nextI(I);
 }
 
 int main(void) {
-    // 初期値
+    // 初期値の設定
     double minIe; // mA
     double maxIe; // mA
     cout << "minIeとmaxIeを入力してください" << endl;
@@ -32,16 +31,18 @@ int main(void) {
         cout << "maxIeが小さすぎます。" << endl;
         return 1;
     }
+    // 初期値の設定ここまで
+
     while (true) {
-        double diff = maxIe - minIe;
         double next_x = (maxIe + minIe) / 2;
-        if (diff < 10e-5) break;
+        // 誤差が条件以内となったらループのA終了
+        if (maxIe - minIe < 10e-5) break;
         else {
             if (getDiff(next_x) > 0) maxIe = next_x;
             else minIe = next_x;
         }
-        cout << minIe << " " << maxIe << endl;
+        // 値の経過の表示
+        cout << minIe << "," << maxIe << endl;
     }
-    cout << minIe << endl;
     return 0;
 }
