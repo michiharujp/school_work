@@ -64,7 +64,7 @@ int main(void) {
     while(msec < 1000) {
         n++;
         start = clock();
-        ans = fibo3(n);
+        ans = fibo1(n);
         end = clock();
         msec = (end - start)*1000 / (double) CLOCKS_PER_SEC;
         printf("%lf msec\n",msec);
