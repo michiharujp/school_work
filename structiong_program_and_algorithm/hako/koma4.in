@@ -1,0 +1,16 @@
+10
+2 1 A
+2 2 B
+2 1 C
+1 2 D
+1 2 E
+1 1 F
+1 2 G
+1 1 H
+1 1 I
+1 1 J
+A B B C
+A B B C
+D D E E
+F G G H
+I * * J
